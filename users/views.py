@@ -1,10 +1,17 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib.auth import login, logout
+#serializers for api endpoints
+from rest_framework import viewsets
+from .models import Profile
 from .serializers import ProFileSerializer
 
 
 #class based api views
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProFileSerializer
+
 
 
 # Create your views here.
