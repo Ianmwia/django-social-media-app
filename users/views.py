@@ -24,7 +24,7 @@ def register(request):
         user_form = CustomUserCreationForm(request.POST)
         profile_form = ProfileForm(request.POST, request.FILES)
 
-        if user_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
         
             profile = profile_form.save(commit=False)
@@ -37,4 +37,4 @@ def register(request):
         user_form =CustomUserCreationForm()
         profile_form = ProfileForm()
 
-    return render(request, 'register.html', {'user_form': user_form})
+    return render(request, 'register.html', {'user_form': user_form}, {'profile_form': profile_form})
