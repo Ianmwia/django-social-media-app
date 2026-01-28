@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+
+{% block content %}
+    
+    <div class="min-h-screen flex items-center justify-center">
+        <form class="flex flex-col bg-gray-100 p-1 rounded-lg outline-1 lg:p-3 lg:w-3/5" action="" method="post">
+            {% csrf_token %}
+            <p class="text-lg mb-2 text-center">Login</p>
+
+            <!--NON FIELD ERRORS-->
+            
+            {% if form.non_field_errors %}
+                <p class="text-red-700 text-sm"> {{form.non_field_errors}} </p>
+                
+            {% endif %}
+                
+            <!--username-->
+                <div class="lg:p-3 lg:w-full mb-2 w-3/5">
+                    <label for="{{ form.username.id_for_label}}">Username</label>
+                    {{ form.username|add_class:'w-full outline rounded mb-1 p-1 bg-white'}}
+                    
+                    {% if form.username.errors %}
+                        <p class="text-red-700 text-sm"> {{form.username.errors}} </p>    
+                    {% endif %}
+                        
+                </div>
+                <div class="lg:p-3 lg:w-full mb-2">
+                    <label for="{{ form.password.id_for_label}}">Password</label>
+                    {{ form.password|add_class:'w-full outline rounded mb-1 p-1 bg-white'}}
+                    
+                    {% if form.password.errors %}
+                        <p class="text-red-700 text-sm"> {{form.password.errors}} </p>    
+                    {% endif %}
+                        
+                </div>
+                
+            <button type="submit" class=" bg-green-500 text-white py-2 rounded-lg hover:cursor-pointer text-xl hover:bg-green-700 mb-2">Login</button>
+
+            <div class="text-center">
+            Don't Have an Account? 
+            <a href="{% url 'register' %}" class="text-lg text-blue-300 hover:text-blue-600 hover:cursor-pointer">Register</a>
+            </div>
+                
+        </form>
+        
+
+    </div>
+
+{% endblock content %}
+    
