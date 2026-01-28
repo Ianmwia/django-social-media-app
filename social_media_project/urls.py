@@ -20,4 +20,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("users.urls")),
+    # api views
+    path('api/profile/', include("users.urls")),
+
 ]
