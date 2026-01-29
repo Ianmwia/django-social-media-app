@@ -28,6 +28,8 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(_("user id"), primary_key=True)
+    first_name = models.CharField(max_length=50, blank=True)
+    last_name = models.CharField(max_length=50, blank=True)
     username = models.CharField(_("username"), max_length=50, unique=True)
     email = models.EmailField(_('email address'), unique=True)
 

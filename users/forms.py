@@ -1,14 +1,16 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile
+from .models import Profile, CustomUser
 
+User = get_user_model()
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
     class Meta:
-        model = User
-        fields = ['first_name','last_name','username', 'email', 'password']
+        model = CustomUser
+        fields = ['first_name','last_name','username', 'email', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,6 +28,9 @@ class CustomUserCreationForm(UserCreationForm):
             'class': 'w-full outline rounded mb-1 p-1 bg-white'
         })
         self.fields['password1'].widget.attrs.update({
+            'class': 'w-full outline rounded mb-1 p-1 bg-white'
+        })
+        self.fields['password2'].widget.attrs.update({
             'class': 'w-full outline rounded mb-1 p-1 bg-white'
         })
         
@@ -46,3 +51,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['bio', 'image']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['bio'].widget.attrs.update({
+            'class': 'w-full outline rounded mb-1 p-1 bg-white h-[70px]'
+        })
+        self.fields['image'].widget.attrs.update({
+            'class': 'w-full m-2'
+        })
