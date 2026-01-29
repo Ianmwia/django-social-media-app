@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    News Feed
+{% endblock title %}
+
+
+{% block content %}
+    <div>
+        <div>
+            <p class="font-semibold">News Feed</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            {% for post in posts %}
+                <div class=' flex flex-col border rounded-lg p-2'>
+                    <div class="flex gap-4 items-centre mb-2">
+                    {% if post.author.profile.image %}
+                        <img  class="w-[30px] h-[30px] object-fit rounded-full outline" src="{{ post.author.profile.image.url }}" width="400" height='400'>
+                    {% endif %}
+                    <p class="mb-2">@{{ post.author.username }}</p>
+                    </div>
+                    <p class="rounded bg-gray-200 mb-2">{{ post.text_post }}</p>
+                    
+                    {% if post.image_post %}
+                        <img  class="w-[360px] h-[360px] object-fit p-2 rounded" src="{{ post.image_post.url }}" width="400" height='400'>
+                    {% endif %}
+                    <p>Posted On: {{ post.created_at }}</p>
+                </div>     
+            {% endfor %}
+            
+        </div>
+    </div>
+{% endblock content %}
+    
+    
