@@ -16,6 +16,7 @@ urlpatterns = [
     path("", include(router.urls)),
     
     #path("register", views.register, name='register'),
-    #path("", views.landing_page, name='home'),
+    path("create_post", views.create_post, name='create_post'),
+    path("feed", views.news_feed, name='feed'),
     
 ]
