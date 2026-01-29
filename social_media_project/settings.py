@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'posts',
     'cloudinary',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +146,8 @@ APPEND_SLASH = True
 
 #custom user
 AUTH_USER_MODEL = 'users.CustomUser'
+
+#login logout redirect
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/profile_page' # HOME
+LOGOUT_REDIRECT_URL = '/login'

@@ -20,10 +20,14 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path('', include("users.urls")),
-    path('', include("posts.urls")),
     # api views
     path('api/profile/', include("users.urls")),
     path('api/post/', include("posts.urls")),
+    
+    #general routes come last to adress django overlap and resolution order
+    path('', include("users.urls")),
+    path('', include("posts.urls")),
+
+    
 
 ]
