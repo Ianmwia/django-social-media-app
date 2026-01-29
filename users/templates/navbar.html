@@ -1,6 +1,18 @@
 <nav >
-    <ul class="bg-[#0e2431] text-[#00bfff] p-2">
-        <li><a href=""><p>Social Media App</p></a></li>
+    <ul class="flex gap-3 bg-[#0e2431] text-[#00bfff] p-2">
+        
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'home' %}"><p>Social Media App</p></a></li>
+        <li><a href="{% url 'profile_page' %}"><p>Profile Page</p></a></li>
+          <form action="{% url 'logout'%}" method="post" class="ml-auto mr-3">
+            {% csrf_token %}
+            <button class=" text-white bg-red-300 rounded-lg p-2 hover:bg-red-600 hover:cursor-pointer" type="submit">Logout</button>
+        </form>
+        {% else %}
+        <li><a href="{% url 'register' %}"><p>Register</p></a></li>
+        <li><a href="{% url 'login' %}"><p>Login</p></a></li>
+        {% endif %}
+          
     </ul>
     
 </nav>

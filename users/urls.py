@@ -16,11 +16,11 @@ urlpatterns = [
     #path("register", views.register, name='register'),
     path("", views.landing_page, name='home'),
     path("register/", views.register, name='register'),
-    path("accounts/profile_page/", views.profile_page, name='profile_page'),
+    path("accounts/profile/", views.profile_page, name='profile'),
 
     
 
     #django auth login logout
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('logout/', auth_views.LoginView.as_view(template_name='logout.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='login.html'), name='logout'),
 ]
