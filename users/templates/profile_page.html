@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Profile page
+{% endblock title %}
+    
+
+
+{% block content %}
+    <div class="p-2">
+        <p class="text-[28px] font-semibold">Profile</p>
+        <p>{{profile.user.username}}</p>
+        {% if profile.image.url %}
+            <img class="rounded-full h-30 w-30 bg-gray-300" src="{{ profile.image.url }}" alt="{{ profile.user.username }}">
+        {% else %}
+        <p class="rounded-full h-30 w-30 bg-gray-300 flex items-center justify-center"><span class=" text-center text-white">No image</span></p>
+        {% endif %}
+        <p>{{profile.bio}}</p>
+    </div>
+    <div class="outline p-2 rounded">
+        <p class="bg-gray-300 text-white font-semibold">Edit Profile</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            <textarea name="" id="" required>{{profile.bio}}</textarea>
+            <button class="rounded bg-green-300 text-white" type="submit">Save</button>
+        </form>
+    </div>
+{% endblock content %}
+    
