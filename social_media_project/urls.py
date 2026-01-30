@@ -21,8 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # api views
-    path('api/profile/', include("users.urls")),
-    path('api/post/', include("posts.urls")),
+    path('api/', include("users.urls")),
+    path('api/', include("posts.urls")),
     
     #general routes come last to adress django overlap and resolution order
     path('', include("users.urls")),
