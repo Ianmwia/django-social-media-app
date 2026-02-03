@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 from decouple import config
 import cloudinary
+import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,7 +33,7 @@ cloudinary.config(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -50,11 +52,14 @@ INSTALLED_APPS = [
     'posts',
     'cloudinary',
     'widget_tweaks',
+    'cors-headers',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -92,17 +97,46 @@ WSGI_APPLICATION = 'social_media_project.wsgi.application'
 #     }
 # }
 
-#postgress db
-DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'NAME': config('DATABASE_NAME'), #add name of db created
-         'USER': config('DATABASE_USER'), #username autocreated
-         'PASSWORD': config('DATABASE_PASSWORD'),
-         'HOST': config('DATABASE_HOST'),
-         'PORT': config('PORT')
+# #postgress db
+# DATABASES = {
+#     'default': {
+#          'ENGINE': 'django.db.backends.postgresql',
+#          'NAME': config('DATABASE_NAME'), #add name of db created
+#          'USER': config('DATABASE_USER'), #username autocreated
+#          'PASSWORD': config('DATABASE_PASSWORD'),
+#          'HOST': config('DATABASE_HOST'),
+#          'PORT': config('PORT')
+#     }
+# }
+
+#RENDER CORS
+#for specific origins like react # recommended for prod
+CORS_ALLOWED_ORIGINS = [
+    'https://django-social-media-app-6zy5.onrender.com'
+    #'https://example.com',# parse in domain here
+    #'https://sub.example.com',# additonals
+]
+
+#render
+ALLOWED_HOSTS = ['django-social-media-app-6zy5.onrender.com', '127.0.0.1']
+
+
+#RENDER DEPLOYMENT DATABASE
+if os.environ.get('INTERNAL_DATABASE_URL'):
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('INTERNAL_DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -139,7 +173,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+#STATIC_URL = 'static/'
 
 # to auto add slashes to say there is more after
 APPEND_SLASH = True
@@ -151,3 +185,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = 'accounts/profile' # HOME
 LOGOUT_REDIRECT_URL = '/login'
+
+# DEPLOYMENT
+STATIC_URL = '/static/'
+#STATIC_ROOT = 'static/'
+#for os use
+STATIC_FILES_DIR = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
