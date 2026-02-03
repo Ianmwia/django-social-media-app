@@ -59,6 +59,10 @@ python manage.py runserver
 
 ## API Endpoints
 
+Endpoints are available for serialized models to perform crud applications(GET, CREATE, UPDATE, DELETE) on
+Users, Posts and Comments
+
+
 ```api
 http://127.0.0.1:8000/api/profile/
 
