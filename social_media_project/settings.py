@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'posts',
     'cloudinary',
     'widget_tweaks',
-    'cors-headers',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -111,11 +111,12 @@ WSGI_APPLICATION = 'social_media_project.wsgi.application'
 
 #RENDER CORS
 #for specific origins like react # recommended for prod
-CORS_ALLOWED_ORIGINS = [
-    'https://django-social-media-app-6zy5.onrender.com'
-    #'https://example.com',# parse in domain here
-    #'https://sub.example.com',# additonals
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'https://django-social-media-app-6zy5.onrender.com'
+#     #'https://example.com',# parse in domain here
+#     #'https://sub.example.com',# additonals
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 #render
 ALLOWED_HOSTS = ['django-social-media-app-6zy5.onrender.com', '127.0.0.1']
